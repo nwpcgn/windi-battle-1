@@ -41,16 +41,12 @@
 		<section class="flex-1 flex flex-col gap-8">
 			{#if value}
 				{#each [enemy] as item}
-					<ArenaCard short values={item} />
+					<ArenaCard animation={box.enemy} short values={item} />
 				{/each}
 
 				{#each [player] as item}
-					<ArenaCard short values={item} />
+					<ArenaCard animation={box.player} short values={item} />
 				{/each}
-				<div>
-					<div>Enemy: {box.enemy}</div>
-					<div>Player: {box.player}</div>
-				</div>
 				<section class="h-14 relative overflow-hidden">
 					<div
 						class="absolute grid grid-cols-3 h-14 w-full transform transition-all duration-500 ease-in"
@@ -74,7 +70,7 @@
 			{/if}
 			{#if ended}
 				<div>
-					<button on:click={demo} class="btn">Demo</button>
+					<button on:click={demo} class="btn">Reset (animated)</button>
 				</div>
 			{/if}
 		</section>

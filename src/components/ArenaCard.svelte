@@ -1,5 +1,6 @@
 <script>
 	export let values
+	export let animation = ''
 	export let short = false
 	function percentage(partialValue, totalValue) {
 		return (100 * partialValue) / totalValue
@@ -10,7 +11,7 @@
 	$: death = percent < 1
 </script>
 
-<div class="relative overflow-x-auto shadow-md rounded-lg">
+<div class="relative overflow-x-auto shadow-md rounded-lg animate-animated {animation}">
 	<table
 		class="table-fixed w-full text-lefttransition-all duration-200 {death
 			? 'bg-red-500 text-white animate-pulse'

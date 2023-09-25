@@ -46,6 +46,17 @@
 
 	const damageTaken = async (animationClass, targetId) => {
 		await sleep(100)
+		if (animationClass === 'swing') {
+			animationClass += ' animate-jackInTheBox'
+		} else if (animationClass === 'damages') {
+			animationClass += ' animate-bounce'
+		} else if (animationClass === 'attacke') {
+			animationClass += ' animate-flash'
+		} else if (animationClass === 'playermiss') {
+			animationClass += ' animate-wobble'
+		} else if (animationClass === 'enemymiss') {
+			animationClass += ' animate-tada'
+		}
 		box[targetId] = animationClass
 	}
 
