@@ -3,9 +3,9 @@
 	import Layer from '../lib/Layer.svelte'
 	import RivalsCard from '../components/RivalsCard.svelte'
 	export let rivals
-	export let initGamePlay
-	export let player
-	export let enemy
+	// export let initGamePlay
+	// export let player
+	// export let enemy
 </script>
 
 <Layer body>

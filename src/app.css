@@ -325,7 +325,7 @@ body {
 
 pre {
   @apply p-2 pb-0 bg-gray-100 text-blue-700 overflow-auto whitespace-pre-wrap tab-2;
-} */
+}
 
 adress {
   display: block;

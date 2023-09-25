@@ -72,9 +72,11 @@
 					</div>
 				</section>
 			{/if}
-			<div>
-				<button on:click={demo} class="btn">Demo</button>
-			</div>
+			{#if ended}
+				<div>
+					<button on:click={demo} class="btn">Demo</button>
+				</div>
+			{/if}
 		</section>
 	{/await}
 </Layer>

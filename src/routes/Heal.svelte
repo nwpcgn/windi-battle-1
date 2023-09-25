@@ -4,7 +4,7 @@
 	import { textLog, clearLogs } from '../components/TextLogger.svelte'
 	import {sleep} from '../lib/util'
 
-	export let rivals
+	// export let rivals
 
 	const daten = [
 		{

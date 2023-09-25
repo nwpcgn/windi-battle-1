@@ -64,8 +64,6 @@
 
 	.svg {
 		font-size: 1.3rem;
-	}
-	svg {
 		display: inline-block;
 		width: 1em;
 		height: 1em;
