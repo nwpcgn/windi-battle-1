@@ -1,7 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte'
 	import { sleep } from '../lib/util'
-	import { textLog, clearLogs } from './TextLogger.svelte'
+	import { textLog, clearLogs } from '../components/TextLogger.svelte'
 	import Layer from '../lib/Layer.svelte'
 	const daten = [
 		{
@@ -98,7 +98,6 @@
 		blank: '📃',
 		terminal: '📦'
 	}
-	export let rivals
 
 	onMount(() => {
 		clearLogs()

@@ -5,9 +5,9 @@
 	import { scale } from 'svelte/transition'
 	import { sleep } from '../lib/util'
 	import { TabControl, TabControlItem } from 'renderless-svelte'
-	import { textLog, clearLogs } from './TextLogger.svelte'
+	import { textLog, clearLogs } from '../components/TextLogger.svelte'
 	import Layer from '../lib/Layer.svelte'
-	import RivalsCard from './RivalsCard.svelte'
+	import RivalsCard from '../components/RivalsCard.svelte'
 	export let rivals
 	export let slug = 'enemy'
 	let selected = false

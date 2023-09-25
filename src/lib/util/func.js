@@ -51,9 +51,9 @@ function typewriter(node, { speed = 2 }) {
     }
   };
 }
-function randonNumb(min, max) {
+function randomInt(min, max) {
   // min and max included
   let n = Math.floor(Math.random() * (max - min + 1) + min)
   return n.toFixed(0)
 }
-export { clickOutside, sleep, randonNumb };
+export { formatBytes, clickOutside, sleep, addkomma, getRandInt, typewriter, randomInt };
