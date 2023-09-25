@@ -1,47 +1,47 @@
-import { defineConfig } from 'windicss/helpers';
-import colors from 'windicss/colors';
-import plugin from 'windicss/plugin';
+import { defineConfig } from "windicss/helpers";
+import colors from "windicss/colors";
+import plugin from "windicss/plugin";
 
 export default defineConfig({
-  darkMode: 'class', // or 'media'
+  darkMode: "class", // or 'media'
   theme: {
     extend: {
       screens: {
-        sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
       },
       colors: {
         blue: colors.sky,
         red: colors.rose,
         gray: colors.slate,
-        transparent: 'transparent',
-        current: 'currentColor',
+        transparent: "transparent",
+        current: "currentColor",
         primary: {
-          50: '#f0f4fb',
-          100: '#ccdaf1',
-          200: '#a8c0e7',
-          300: '#83a5de',
-          400: '#5f8bd4',
-          500: '#3b71ca',
-          600: '#315ea8',
-          700: '#274a86',
-          800: '#1c3763',
-          900: '#122341',
+          50: "#f0f4fb",
+          100: "#ccdaf1",
+          200: "#a8c0e7",
+          300: "#83a5de",
+          400: "#5f8bd4",
+          500: "#3b71ca",
+          600: "#315ea8",
+          700: "#274a86",
+          800: "#1c3763",
+          900: "#122341",
         },
       },
       fontFamily: {
-        sans: ['Graphik', 'sans-serif'],
-        serif: ['Merriweather', 'serif'],
+        sans: ["Graphik", "sans-serif"],
+        serif: ["Merriweather", "serif"],
       },
       spacing: {
-        128: '32rem',
-        144: '36rem',
+        128: "32rem",
+        144: "36rem",
       },
       borderRadius: {
-        '4xl': '2rem',
+        "4xl": "2rem",
       },
     },
   },
@@ -98,12 +98,22 @@ export default defineConfig({
     //     animatedSpeed: 1000,
     //   },
     // }),
-    require('windicss/plugin/filters'),
-   // require('windicss/plugin/forms'),
-    require('windicss/plugin/aspect-ratio'),
-    require('windicss/plugin/line-clamp'),
-    require('windicss/plugin/typography')({
-      modifiers: ['DEFAULT', 'sm', 'lg', 'red'],
+    require("windicss/plugin/filters"),
+    // require('windicss/plugin/forms'),
+    require("windicss/plugin/aspect-ratio"),
+    require("windicss/plugin/line-clamp"),
+    require("windicss/plugin/typography")({
+      modifiers: ["DEFAULT", "sm", "lg", "red"],
+    }),
+    require("@windicss/plugin-animations")({
+      settings: {
+        animatedSpeed: 1000,
+        heartBeatSpeed: 1000,
+        hingeSpeed: 2000,
+        bounceInSpeed: 750,
+        bounceOutSpeed: 750,
+        animationDelaySpeed: 1000,
+      },
     }),
   ],
 });

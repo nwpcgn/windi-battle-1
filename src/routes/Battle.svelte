@@ -172,6 +172,7 @@
 
 	const demo = async () => {
 		resetArena()
+		lockActionButtons(true)
 		await sleep(1000)
 		player.health = 24
 		enemy.health = 13
@@ -224,6 +225,8 @@
 		player.health = 0
 		enemy.health = 0
 		await sleep(8000)
+		ended = true
+		lockActionButtons(false)
 		player.health = player.maxHealth
 		enemy.health = enemy.maxHealth
 	}
