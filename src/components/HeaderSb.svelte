@@ -1,9 +1,16 @@
 <script>
+	import { createEventDispatcher } from 'svelte'
+	const dispatch = createEventDispatcher()
+	function onClick(e) {
+		dispatch('click', {
+			el: e.currentTarget
+		})
+	}
 	export let rivals
 </script>
 
 <header class="sb-top">
-	<a href="/">Terminal</a>
+	<button on:click={() => dispatch("clear")}>Terminal</button>
 	<div class={rivals.getPlayer() ? 'ok' : 'error'}>Player</div>
 	<div class={rivals.getEnemy() ? 'ok' : 'error'}>Enemy</div>
 </header>
@@ -17,13 +24,13 @@
 		overflow: hidden;
 	}
 
-	a,
+	button,
 	div {
 		display: flex;
 		align-items: center;
 		padding: 0.5rem;
 	}
-	a {
+	button {
 		flex: 1;
 	}
 	div.ok {

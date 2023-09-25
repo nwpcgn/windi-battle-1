@@ -98,7 +98,7 @@ body {
   max-width: var(--page-width);
   margin: 0 auto;
 }
-
+/*
 .battle-frame {
 
   display: grid;
@@ -115,7 +115,7 @@ body {
   left: 0;
 }
 
-/* .win-foo {
+ .win-foo {
   grid-area: win-foo;
   display: flex;
   position: relative;

@@ -1,8 +1,11 @@
 <script>
 	import { onMount, onDestroy } from 'svelte'
-	import { sleep } from '../lib/util'
-	import { textLog, clearLogs } from '../components/TextLogger.svelte'
 	import Layer from '../lib/Layer.svelte'
+	import { textLog, clearLogs } from '../components/TextLogger.svelte'
+	import {sleep} from '../lib/util'
+
+	export let rivals
+
 	const daten = [
 		{
 			text: 'A capsule hotel that s 8 stories tall. Decrepit and rundown. Interior in cramped organic style with secret small data node that leads into the low-res virtual hellscape of a dying world. a terrible monster guards a large   stash. Protected by cyberslashers.',
@@ -98,7 +101,6 @@
 		blank: '📃',
 		terminal: '📦'
 	}
-
 	onMount(() => {
 		clearLogs()
 		sleep(500)
@@ -121,9 +123,9 @@
 	})
 </script>
 
-<Layer>
-	<div class="m-auto">
-		<h1>Healing</h1>
+<Layer body>
+	<div>
+		<h1 class="text-xl">Healing</h1>
 		<nav class="flex flex-wrap gap-1">
 			{#each daten as item}
 				<button class="btn" on:click={() => textLog(item)}

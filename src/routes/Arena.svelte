@@ -5,13 +5,13 @@
 	import { sleep } from '../lib/util'
 	import ArenaCard from '../components/ArenaCard.svelte'
 	import Layer from '../lib/Layer.svelte'
-	export let demo
+	export let box
+	export let ended
 	export let enemy
-	export let initGamePlay
 	export let locked
 	export let player
 	export let rivals
-	export let weaponAttack
+	export let weaponAttack, initGamePlay, demo
 
 	const check = () => {
 		if (Object.keys(enemy).length > 0 && Object.keys(player).length > 0) {
@@ -47,6 +47,10 @@
 				{#each [player] as item}
 					<ArenaCard short values={item} />
 				{/each}
+				<div>
+					<div>Enemy: {box.enemy}</div>
+					<div>Player: {box.player}</div>
+				</div>
 				<section class="h-14 relative overflow-hidden">
 					<div
 						class="absolute grid grid-cols-3 h-14 w-full transform transition-all duration-500 ease-in"

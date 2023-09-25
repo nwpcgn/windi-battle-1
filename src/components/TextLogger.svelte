@@ -110,8 +110,7 @@
 
 <style>
 	.text-log {
-		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-			'Liberation Mono', 'Courier New', monospace;
+		font-family: var(--mono-font-stack);
 		line-height: 1.2;
 		font-size: 0.9rem;
 		cursor: no-drop;

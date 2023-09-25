@@ -41,7 +41,7 @@
 	<TabControl>
 		<header class="py-2 space-y-2" slot="tabs" let:tabs>
 			<h1 class="text-4xl">
-				Select Your {slug === 'enemy' ? 'Opponent' : 'Figther'}
+				Select Your {slug === 'enemy' ? 'Opponent' : 'Figther'} 
 			</h1>
 			<nav class="flex border divide-x">
 				{#each tabs as { active, disabled, payload, select }, i}

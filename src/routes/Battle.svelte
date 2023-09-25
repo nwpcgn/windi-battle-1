@@ -12,14 +12,19 @@
 	import MainContent from '../components/MainContent.svelte'
 	import Player from './Player.svelte'
 	import SideBar from '../components/SideBar.svelte'
-	import TextLogger, { textLog } from '../components/TextLogger.svelte'
+	import TextLogger, {
+		textLog,
+		clearLogs
+	} from '../components/TextLogger.svelte'
 	import Wrapp from '../components/Wrapp.svelte'
-	let current = 0
 	let ended = true
 	let locked = false
 	let rivals = new CharacterLib(game.player, game.enemy)
 	let roundCount = `⌛ Turn`
 	let turn = 0
+	let box = {}
+	box.enemy = ''
+	box.player = ''
 
 	const logText = (
 		text,
@@ -35,34 +40,17 @@
 			timeout
 		})
 	}
-	const healthBarUpdate = (
-		playerHealth,
-		playerHealthMax,
-		playerPoints,
-		playerHealthBar
-	) => {
-		console.log(
-			'XXX - healthBarUpdate(playerHealth, playerHealthMax, playerPoints, playerHealthBar)',
-			playerHealth,
-			playerHealthMax,
-			playerPoints,
-			playerHealthBar
-		)
+	const healthBarUpdate = (playerHealth, playerHealthMax, playerPoints) => {
+		console.log('___healthBarUpdate:', playerPoints, playerHealth)
 	}
 
 	const damageTaken = async (animationClass, targetId) => {
-		await sleep(500)
-		console.log(
-			'XXX - damageTaken(animationClass, targetId)',
-			animationClass,
-			targetId
-		)
+		await sleep(100)
+		box[targetId] = animationClass
 	}
 
 	function lockActionButtons(condition) {
 		locked = condition
-
-		console.log('YYY - lockActionButtons(condition)', condition)
 	}
 	function opponent(obj) {
 		this.name = obj.name
@@ -77,50 +65,53 @@
 		this.attack = async function () {
 			let x = throwDice(1, 10)
 			let attackMessage = this.name + ' attempt to attack...'
-
 			logText(attackMessage)
 
-			await sleep(600)
+			let _del = throwDice(100, 900)
+			await sleep(600 + _del)
 			if (x >= this.hardAttackDice) {
-				damageTaken('attacke', 'enemyBox')
+				damageTaken('attacke', 'enemy')
 				let nh = player.health - this.hardAttackDamage
 				player.health = nh < 0 ? 0 : nh
-				healthBarUpdate(
-					player.health,
-					player.maxHealth,
-					player.pointsId,
-					player.healthbarId
-				)
-				// logText('The enemy waves his spear at you');
-				let damageText =
-					'⚔️ You take ' + this.hardAttackDamage + ' points of critical damage'
+				healthBarUpdate(player.health, player.maxHealth, player.pointsId)
+				let attac_msg = `${this.name} waves his spear at you`
+				logText(attac_msg, 'warning')
+				let _del = throwDice(300, 500)
+				await sleep(100 + _del)
+				let damageText = `⚔️ You take ${this.hardAttackDamage} points of critical damage`
 				logText(damageText, 'error')
-				damageTaken('damages', 'playerBox')
+				damageTaken('damages', 'player')
 			} else if (x > this.weakAttackDice && x < this.hardAttackDice) {
-				damageTaken('attacke', 'enemyBox')
-				// player.health = player.health - weakAttackDamage
+				damageTaken('attacke', 'enemy')
 				let nh = player.health - this.weakAttackDamage
 				player.health = nh < 0 ? 0 : nh
-				healthBarUpdate(
-					player.health,
-					player.maxHealth,
-					player.pointsId,
-					player.healthbarId
-				)
-				// logText('The enemy charges at you with a spear');
-				let damageText =
-					'⚔️ You take ' + this.weakAttackDamage + ' points of damage'
+				healthBarUpdate(player.health, player.maxHealth, player.pointsId)
+				let _del = throwDice(300, 500)
+				let attac_msg = `${this.name} charges at you with a spear`
+				logText(attac_msg, 'warning')
+				await sleep(100 + _del)
+				let damageText = `⚔️ You take ${this.weakAttackDamage} points of damage`
 				logText(damageText, 'error')
-				damageTaken('damages', 'playerBox')
+				damageTaken('damages', 'player')
 			} else {
-				logText('💫 The fighter stumbles over his own feet', 'success')
-				damageTaken('attacke', 'enemyBox')
-				damageTaken('playermiss', 'playerBox')
+				damageTaken('attacke', 'enemy')
+				let _del = throwDice(300, 500)
+				let attac_msg = `${this.name} charges at you with a spear`
+				logText(attac_msg, 'warning')
+				await sleep(100 + _del)
+				logText('💫 The Enemy stumbles over his own feet', 'blank')
+				damageTaken('playermiss', 'player')
 			}
 
 			await sleep(400)
 			logText('Turn End', 'terminal')
 		}
+	}
+
+	const removeAnimation = async () => {
+		await sleep(1500)
+		box.enemy = ''
+		box.player = ''
 	}
 
 	async function weaponAttack(
@@ -131,76 +122,56 @@
 		missDescription
 	) {
 		// console.log('weaponAttack(successDice, damage)', successDice, damage)
-
+		clearLogs()
 		lockActionButtons(true)
 		turn++
 		logText(`⌛ Turn ${turn}`, 'terminal')
-		// turnCounterUpdate(turn)
 		let x = throwDice(1, 10)
-		let _del = throwDice(100, 900)
+		let _del = throwDice(400, 900)
 		await sleep(600 + _del)
-
 		if (enemy.health > 0) {
 			await sleep(200)
 			logText(attackName, 'info')
 			await sleep(200)
 			logText(attackDescription, 'info')
 			await sleep(800)
-			damageTaken('swing', 'playerBox')
+			damageTaken('swing', 'player')
 			if (x > successDice) {
 				let nh = enemy.health - damage
 				enemy.health = nh < 0 ? 0 : nh
-				damageTaken('damages', 'enemyBox')
-				healthBarUpdate(
-					enemy.health,
-					enemy.maxHealth,
-					enemy.pointsId,
-					enemy.healthbarId
-				)
-				let damagedeal =
-					'⚔️ You successfully deal ' +
-					damage +
-					' points of damage to the opponent'
+				damageTaken('damages', 'enemy')
+				healthBarUpdate(enemy.health, enemy.maxHealth, enemy.pointsId)
+				let damagedeal = `⚔️ You successfully deal ${damage} points of damage to the opponent`
 				logText(damagedeal, 'success')
 			} else {
 				logText(missDescription, 'error')
-				damageTaken('enemymiss', 'enemyBox')
+				damageTaken('enemymiss', 'enemy')
 			}
-			await sleep(1000)
+			let _dely = throwDice(500, 1500)
+			await sleep(1000 + _dely)
 			if (enemy.health > 0) {
 				enemy.attack()
 			} else {
 				logText('☠️ Creatura is dead', 'success')
-				// lockActionButtons(false)
-				// enemy.health = 0
 				ended = true
 			}
 			await sleep(800)
-			// turnCounterUpdate(turn)
 			lockActionButtons(false)
 		} else {
 			logText('☠️ Creatura is dead', 'success')
-			// lockActionButtons(false)
-			// enemy.health = 0
 			ended = true
 		}
 
-		await sleep(1000)
+		await sleep(1500)
+		removeAnimation()
 		lockActionButtons(false)
-	}
-
-	const resetGame = () => {
-		turn = 1
-		roundCount = '⌛ Turn'
-		locked = false
-		ended = false
-		initGamePlay()
 	}
 
 	$: player = {}
 	$: enemy = {}
 
 	const demo = async () => {
+		resetArena()
 		await sleep(1000)
 		player.health = 24
 		enemy.health = 13
@@ -257,26 +228,32 @@
 		enemy.health = enemy.maxHealth
 	}
 
+	const resetArena = () => {
+		turn = 0
+		locked = false
+		ended = false
+		box.enemy = ''
+		box.player = ''
+	}
+
 	const initGamePlay = () => {
 		if (rivals.battle()) {
 			let obj1 = rivals.getPlayer()
 			player = new fighter(obj1)
 			let obj2 = rivals.getEnemy()
 			enemy = new opponent(obj2)
-			turn = 0
-			locked = false
-			ended = false
+			resetArena()
 		}
 	}
 
 	onMount(() => {
-		console.log(rivals.battle())
+		// console.log(rivals.battle())
 	})
 </script>
 
 <Wrapp>
 	<HeaderMain />
-	<HeaderSb bind:rivals />
+	<HeaderSb on:clear={clearLogs} bind:rivals />
 	<MainContent>
 		{#if $path === '/battle'}
 			<Main bind:rivals bind:player bind:enemy {initGamePlay} />
@@ -288,10 +265,12 @@
 			<Heal bind:rivals />
 		{:else if $path === '/battle/arena'}
 			<Arena
-				bind:player
+				bind:box
+				bind:ended
 				bind:enemy
-				bind:rivals
 				bind:locked
+				bind:player
+				bind:rivals
 				{demo}
 				{initGamePlay}
 				{weaponAttack} />
@@ -300,5 +279,5 @@
 	<SideBar>
 		<TextLogger />
 	</SideBar>
-	<Foobar bind:player bind:current bind:locked {logText} {weaponAttack} />
+	<Foobar bind:player bind:ended bind:locked {weaponAttack} />
 </Wrapp>
