@@ -4,8 +4,5 @@ import WindiCSS from 'vite-plugin-windicss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [WindiCSS(), svelte()],
-  optimizeDeps: {
-    include: ['pixi.js'],
-  },
+  plugins: [WindiCSS(), svelte()]
 })

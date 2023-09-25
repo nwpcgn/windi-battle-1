@@ -1,7 +1,7 @@
 <script>
-	import Layer from '../lib/Layer.svelte'
-	import RivalsCard from './RivalsCard.svelte'
 	import { path } from 'elegua'
+	import Layer from '../lib/Layer.svelte'
+	import RivalsCard from '../components/RivalsCard.svelte'
 	export let rivals
 	export let initGamePlay
 	export let player

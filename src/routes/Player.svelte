@@ -1,13 +1,13 @@
 <script>
-	import { scale } from 'svelte/transition'
-	import { textLog, clearLogs } from './TextLogger.svelte'
-	import { TabControl, TabControlItem } from 'renderless-svelte'
-	import RivalsCard from './RivalsCard.svelte'
-	import Layer from '../lib/Layer.svelte'
+	import { onDestroy, onMount } from 'svelte'
 	import { path } from 'elegua'
 	import { quintIn, quintOut } from 'svelte/easing'
-	import { onDestroy, onMount } from 'svelte'
+	import { scale } from 'svelte/transition'
 	import { sleep } from '../lib/util'
+	import { TabControl, TabControlItem } from 'renderless-svelte'
+	import { textLog, clearLogs } from './TextLogger.svelte'
+	import Layer from '../lib/Layer.svelte'
+	import RivalsCard from './RivalsCard.svelte'
 	export let rivals
 	export let slug = 'enemy'
 	let selected = false

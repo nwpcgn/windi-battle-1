@@ -1,10 +1,10 @@
 <script>
-	import Start from './routes/Start.svelte'
-	import Battle from './routes/Battle.svelte'
 	import { path } from 'elegua'
-	import { sleep, typewriter } from './lib/util'
+	import { sleep } from './lib/util'
+	import Battle from './routes/Battle.svelte'
 	import Error from './routes/Error.svelte'
 	import Loader from './lib/Loader.svelte'
+	import Start from './routes/Start.svelte'
 	import Toasts from './lib/notes/Toasts.svelte'
 	const init = async () => {
 		$path = '/'

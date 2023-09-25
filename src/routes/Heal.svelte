@@ -1,11 +1,8 @@
 <script>
 	import { onMount, onDestroy } from 'svelte'
-	import Layer from '../lib/clickergame/Layer.svelte'
+	import { sleep } from '../lib/util'
 	import { textLog, clearLogs } from './TextLogger.svelte'
-	import {sleep} from '../lib/util'
-
-	export let rivals
-
+	import Layer from '../lib/Layer.svelte'
 	const daten = [
 		{
 			text: 'A capsule hotel that s 8 stories tall. Decrepit and rundown. Interior in cramped organic style with secret small data node that leads into the low-res virtual hellscape of a dying world. a terrible monster guards a large   stash. Protected by cyberslashers.',
@@ -101,6 +98,8 @@
 		blank: '📃',
 		terminal: '📦'
 	}
+	export let rivals
+
 	onMount(() => {
 		clearLogs()
 		sleep(500)

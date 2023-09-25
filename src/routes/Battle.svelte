@@ -1,27 +1,26 @@
 <script>
-	import Heal from './Heal.svelte'
-	import TextLogger, { textLog, clearLogs } from './TextLogger.svelte'
-	import Main from './Main.svelte'
-	import HeaderMain from '../components/HeaderMain.svelte'
-	import { CharacterLib, game, fighter, throwDice } from './battle'
-	import Arena from './Arena.svelte'
-	import { path } from 'elegua'
-	import Player from './Player.svelte'
-	import HeaderSb from '../components/HeaderSb.svelte'
-	import Foobar from '../components/Foobar.svelte'
-	import MainContent from '../components/MainContent.svelte'
-	import SideBar from '../components/SideBar.svelte'
-	import Wrapp from '../components/Wrapp.svelte'
+	import { CharacterLib, game, fighter, throwDice } from '../components/battle'
 	import { onMount } from 'svelte'
+	import { path } from 'elegua'
 	import { sleep } from '../lib/util'
-	import { addLog, Logs } from '../lib/notes'
-	let rivals = new CharacterLib(game.player, game.enemy)
-	let turn = 0
-	let roundCount = `⌛ Turn`
-	let locked = false
-	let ended = true
+	import Arena from './Arena.svelte'
+	import Foobar from '../components/Foobar.svelte'
+	import HeaderMain from '../components/HeaderMain.svelte'
+	import HeaderSb from '../components/HeaderSb.svelte'
+	import Heal from './Heal.svelte'
+	import Main from './Main.svelte'
+	import MainContent from '../components/MainContent.svelte'
+	import Player from './Player.svelte'
+	import SideBar from '../components/SideBar.svelte'
+	import TextLogger, { textLog } from '../components/TextLogger.svelte'
+	import Wrapp from '../components/Wrapp.svelte'
 	let current = 0
-	$: console.log('ended', ended)
+	let ended = true
+	let locked = false
+	let rivals = new CharacterLib(game.player, game.enemy)
+	let roundCount = `⌛ Turn`
+	let turn = 0
+
 	const logText = (
 		text,
 		type = 'info',
@@ -299,10 +298,7 @@
 		{/if}
 	</MainContent>
 	<SideBar>
-		<TextLogger let:payload duration={20000}>
-			<div>{@html payload}</div>
-		</TextLogger>
-		<Logs />
+		<TextLogger />
 	</SideBar>
 	<Foobar bind:player bind:current bind:locked {logText} {weaponAttack} />
 </Wrapp>

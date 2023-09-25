@@ -1,16 +1,17 @@
 <script>
-	import ArenaCard from './ArenaCard.svelte'
-	import { textLog, clearLogs } from './TextLogger.svelte'
-	import Layer from '../lib/Layer.svelte'
+	import { clearLogs } from '../components/TextLogger.svelte'
+	import { onDestroy } from 'svelte'
 	import { path } from 'elegua'
-	import { onDestroy, onMount } from 'svelte'
 	import { sleep } from '../lib/util'
-	export let demo, weaponAttack
-	export let initGamePlay
-	export let player
+	import ArenaCard from '../components/ArenaCard.svelte'
+	import Layer from '../lib/Layer.svelte'
+	export let demo
 	export let enemy
-	export let rivals
+	export let initGamePlay
 	export let locked
+	export let player
+	export let rivals
+	export let weaponAttack
 
 	const check = () => {
 		if (Object.keys(enemy).length > 0 && Object.keys(player).length > 0) {
