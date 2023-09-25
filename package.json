@@ -1,0 +1,21 @@
+{
+	"name": "windi-clicker-1",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^2.4.2",
+		"elegua": "^2.1.1",
+		"mdsvex": "^0.11.0",
+		"renderless-svelte": "^1.7.0",
+		"svelte": "^4.0.5",
+		"vite": "^4.4.5",
+		"vite-plugin-windicss": "^1.9.0",
+		"windicss": "^3.5.6"
+	}
+}
