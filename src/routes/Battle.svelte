@@ -40,9 +40,6 @@
 			timeout
 		})
 	}
-	const healthBarUpdate = (playerHealth, playerHealthMax, playerPoints) => {
-		console.log('___healthBarUpdate:', playerPoints, playerHealth)
-	}
 
 	const damageTaken = async (animationClass, targetId) => {
 		await sleep(100)
@@ -75,7 +72,7 @@
 		this.weakAttackDice = obj.weakAttackDice
 		this.attack = async function () {
 			let x = throwDice(1, 10)
-			let attackMessage = this.name + ' attempt to attack...'
+			let attackMessage = `${this.name} attempt to attack...`
 			logText(attackMessage)
 
 			let _del = throwDice(100, 900)
@@ -84,7 +81,7 @@
 				damageTaken('attacke', 'enemy')
 				let nh = player.health - this.hardAttackDamage
 				player.health = nh < 0 ? 0 : nh
-				healthBarUpdate(player.health, player.maxHealth, player.pointsId)
+				// healthBarUpdate(player.health, player.maxHealth, player.pointsId)
 				let attac_msg = `${this.name} waves his spear at you`
 				logText(attac_msg, 'warning')
 				let _del = throwDice(300, 500)
@@ -96,7 +93,7 @@
 				damageTaken('attacke', 'enemy')
 				let nh = player.health - this.weakAttackDamage
 				player.health = nh < 0 ? 0 : nh
-				healthBarUpdate(player.health, player.maxHealth, player.pointsId)
+				// healthBarUpdate(player.health, player.maxHealth, player.pointsId)
 				let _del = throwDice(300, 500)
 				let attac_msg = `${this.name} charges at you with a spear`
 				logText(attac_msg, 'warning')
@@ -132,9 +129,9 @@
 		attackDescription,
 		missDescription
 	) {
-		// console.log('weaponAttack(successDice, damage)', successDice, damage)
 		clearLogs()
 		lockActionButtons(true)
+		ended = false
 		turn++
 		logText(`⌛ Turn ${turn}`, 'terminal')
 		let x = throwDice(1, 10)
@@ -151,7 +148,7 @@
 				let nh = enemy.health - damage
 				enemy.health = nh < 0 ? 0 : nh
 				damageTaken('damages', 'enemy')
-				healthBarUpdate(enemy.health, enemy.maxHealth, enemy.pointsId)
+				// healthBarUpdate(enemy.health, enemy.maxHealth, enemy.pointsId)
 				let damagedeal = `⚔️ You successfully deal ${damage} points of damage to the opponent`
 				logText(damagedeal, 'success')
 			} else {
@@ -167,7 +164,6 @@
 				ended = true
 			}
 			await sleep(800)
-			lockActionButtons(false)
 		} else {
 			logText('☠️ Creatura is dead', 'success')
 			ended = true
@@ -175,6 +171,12 @@
 
 		await sleep(1500)
 		removeAnimation()
+		if (player.health < 1) {
+			logText('☠️ You are dead', 'error')
+			ended = true
+		}
+
+		await sleep(1000)
 		lockActionButtons(false)
 	}
 
@@ -245,7 +247,7 @@
 	const resetArena = () => {
 		turn = 0
 		locked = false
-		ended = false
+		ended = true
 		box.enemy = ''
 		box.player = ''
 	}
@@ -276,7 +278,7 @@
 		{:else if $path === '/battle/enemy'}
 			<Player slug="enemy" bind:rivals />
 		{:else if $path === '/battle/heal'}
-			<Heal bind:rivals />
+			<Heal />
 		{:else if $path === '/battle/arena'}
 			<Arena
 				bind:box

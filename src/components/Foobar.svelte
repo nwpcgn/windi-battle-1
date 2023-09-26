@@ -1,4 +1,6 @@
 <script>
+	import { path } from 'elegua'
+	import { clickOutside } from '../lib/util'
 	const panels = [
 		{
 			name: 'Select Figther',
@@ -17,44 +19,67 @@
 			href: '/battle/heal'
 		}
 	]
+
 	export let player = {}
-	export let current = 0
 	export let locked = false
 	export let weaponAttack
-	const openMenu = (id = 0) => {
-		current = id
+	let accept = false
+	const reset = () => {
+		accept = false
 	}
 </script>
 
 <footer class="win-foo">
-	<nav class="win-panel" class:open={true}>
-		<div class="btn-grid">
-			{#each panels as { name, next, href }, i}
-				{#if !href}
-					<button class="btn" on:click={() => openMenu(next)}>{name}</button>
-				{:else}
-					<a class="btn" {href}>{name}</a>
-				{/if}
-			{/each}
-		</div>
-	</nav>
-	<nav class="win-panel" class:open={false}>
+	<nav class="win-panel" class:open={$path === '/battle/arena' && !locked}>
 		<div class="btn-grid">
 			{#if player && player.attacks}
 				{#each player.attacks as [attackName, successDice, damage, attackDescription, missDescription]}
 					<!-- attackName, successDice, damage, attackDescription, missDescription -->
 					<button
+						class="btn"
 						disabled={locked}
 						on:click={() =>
 							weaponAttack(
-								attackDescription,
+								attackName,
 								successDice,
 								damage,
+								attackDescription,
 								missDescription
 							)}>{attackName}</button>
 				{/each}
+				{#if accept}
+					<button
+						on:click={() => {
+							reset()
+							$path = '/battle'
+						}}
+						use:clickOutside
+						on:click_outside={reset}
+						class="btn bg-red-600 text-red-100">Leave Battle ?</button>
+				{:else}
+					<button
+						on:click={() => (accept = true)}
+						class="btn bg-gray-500 text-gray-100">Close</button>
+				{/if}
 			{/if}
-			<button class="btn btn-default">Close</button>
+		</div>
+	</nav>
+	<nav
+		class="win-panel flex items-center justify-center"
+		class:open={$path === '/battle/arena' && locked}>
+		<div>
+			<div>... attack in progress</div>
+		</div>
+	</nav>
+	<nav class="win-panel" class:open={$path !== '/battle/arena'}>
+		<div class="btn-grid">
+			{#each panels as { name, next, href }, i}
+				{#if !href}
+					<button class="btn">{name}</button>
+				{:else}
+					<a class="btn" {href}>{name}</a>
+				{/if}
+			{/each}
 		</div>
 	</nav>
 </footer>
