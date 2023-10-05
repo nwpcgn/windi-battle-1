@@ -11,7 +11,7 @@
 	export let locked
 	export let player
 	export let rivals
-	export let weaponAttack, initGamePlay, demo
+	export let initGamePlay, demo
 
 	const init = async () => {
 		if (!rivals.battle()) $path = '/battle'
@@ -36,11 +36,11 @@
 				{#each [enemy] as item}
 					<ArenaCard animation={box.enemy} short values={item} />
 				{/each}
-
+				<div class="h-4" />
 				{#each [player] as item}
 					<ArenaCard animation={box.player} short values={item} />
 				{/each}
-				<div class="h-12" />
+				<div class="h-8" />
 
 				{#if ended && !locked}
 					<div>

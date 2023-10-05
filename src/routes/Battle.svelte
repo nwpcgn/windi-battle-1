@@ -75,8 +75,8 @@
 			let attackMessage = `${this.name} attempt to attack...`
 			logText(attackMessage)
 
-			let _del = throwDice(100, 900)
-			await sleep(600 + _del)
+			let _del = throwDice(300, 900)
+			await sleep(800 + _del)
 			if (x >= this.hardAttackDice) {
 				damageTaken('attacke', 'enemy')
 				let nh = player.health - this.hardAttackDamage
@@ -168,7 +168,6 @@
 			logText('☠️ Creatura is dead', 'success')
 			ended = true
 		}
-
 		await sleep(1500)
 		removeAnimation()
 		if (player.health < 1) {
